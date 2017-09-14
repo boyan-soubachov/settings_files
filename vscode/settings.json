@@ -1,0 +1,45 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.fontSize": 12,
+    "window.openFilesInNewWindow": "off",
+    "editor.scrollBeyondLastLine": false,
+    "editor.cursorBlinking": "smooth",
+    "editor.renderIndentGuides": true,
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "editor.autoClosingBrackets": false,
+    "extensions.autoUpdate": true,
+    "window.zoomLevel": 0,
+    "vsicons.dontShowNewVersionMessage": true,
+    "editor.formatOnType": true,
+    "window.newWindowDimensions": "inherit",
+    "workbench.iconTheme": "vscode-icons",
+    "gitProjectManager.baseProjectsFolders": [
+        "~/workspace"
+    ],
+    "gitProjectManager.recentProjectsListSize": 8,
+    "workbench.sideBar.location": "left",
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/venv": true
+    },
+    "workbench.colorTheme": "Quiet Light",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#000000",
+        "activityBar.foreground": "#ffffff",
+        "titleBar.activeBackground": "#d3d3d3",
+        "titleBar.inactiveBackground": "#f3f3f3"
+    },
+    "explorer.openEditors.visible": 0,
+    "files.insertFinalNewline": true,
+    "editor.renderLineHighlight": "gutter",
+    "editor.minimap.enabled": false,
+    "git.enableSmartCommit": true,
+    "workbench.startupEditor": "none"
+}
