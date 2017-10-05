@@ -119,10 +119,3 @@ function code-release {
     git branch -d $branch || return 1
     git pull
 }
-alias stern-master='stern --context admin@kubernetes -n master'
-alias stern-office='stern --context kubernetes-admin@kubernetes'
-alias kubectl-office='kubectl --context kubernetes-admin@kubernetes'
-alias kubectl-office-master='kubectl --context kubernetes-admin@kubernetes -n master'
-alias helm-office='helm --kube-context kubernetes-admin@kubernetes'
-alias kgp='kubectl get pods'
-alias kgpa='kubectl get pods --all-namespaces'
