@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/boyansoubachov/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -115,25 +115,4 @@ function code-release {
     git push origin :$branch || return 1
     git branch -d $branch || return 1
     git pull
-}
-function tf-version() {
-  if [ -z $1 ]; then
-    echo "You must specify the version!"
-    return
-  fi
-  echo "Switching to terraform version $1"
-  if [ ! -f /usr/local/Cellar/terraform/$1/terraform ]; then
-    echo "New version of terraform, downloading..."
-    curl -S https://releases.hashicorp.com/terraform/$1/terraform_$1_darwin_amd64.zip > /tmp/tf_$1.zip \
-      && cd /tmp \
-      && unzip /tmp/tf_$1.zip \
-      && mkdir -p /usr/local/Cellar/terraform/$1/ \
-      && mv terraform /usr/local/Cellar/terraform/$1/ \
-      && rm /tmp/tf_$1.zip \
-      && cd -
-  fi
-  rm /usr/local/bin/terraform
-  ln -s /usr/local/Cellar/terraform/$1/terraform /usr/local/bin/terraform
-  echo "Confirming version from binary:"
-  terraform --version
 }
