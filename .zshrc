@@ -59,9 +59,9 @@ plugins=(brew git docker git-extras)
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
-EDITOR='vim'
+export EDITOR='vim'
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -84,10 +84,6 @@ export SSH_KEY_PATH="~/.ssh/id_rsa.pub"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-#CUDA
-export PATH=/usr/local/cuda/bin:$PATH
-export DYLD_LIBRARY_PATH=/usr/local/cuda/lib:$DYLD_LIBRARY_PATH
 
 #Takealot git helper functions
 function code-on {
