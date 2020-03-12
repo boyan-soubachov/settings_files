@@ -5,6 +5,7 @@ export ZSH=~/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+# ZSH_THEME="random"
 ZSH_THEME="lambda"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -56,6 +57,10 @@ plugins=(brew git docker git-extras)
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+if [[ "$(command -v go)" ]]; then
+   PATH="$PATH:$(go env GOPATH)/bin"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -84,8 +89,9 @@ export SSH_KEY_PATH="~/.ssh/id_rsa.pub"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias glog="git log --decorate --graph"
 
-#Takealot git helper functions
+# Takealot git helper functions
 function code-on {
     git checkout -b $1 origin/master
 }
@@ -95,20 +101,14 @@ function code-push {
     [[ "$branch" == "master" ]] && echo "should be on feature branch" && return 1
     git push origin HEAD:$branch $@
 }
-function code-pr {
-    local branch=`git rev-parse --abbrev-ref HEAD`
-    [[ "$branch" == "master" ]] && echo "should be on feature branch" && return 1
-    git push origin HEAD:$branch || return 1
-    hub pull-request -h $branch
-}
-function code-release {
-    local branch=`git rev-parse --abbrev-ref HEAD`
-    [[ "$branch" == "master" ]] && echo "should be on feature branch" && return 1
-    git pull --rebase || return 1
-    git push origin HEAD:$branch -f || return 1
-    git push origin HEAD:master || return 1
-    git checkout master || return 1
-    git push origin :$branch || return 1
-    git branch -d $branch || return 1
-    git pull
-}
+
+# Atlassian helpers & stuff
+if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
+    source "${HOME}/.config/cloudtoken/bashrc_additions"
+fi
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+if [ $commands[atlas] ]; then alias am="atlas micros"; fi
+export NVM_DIR="$HOME/.nvm"
+
+# Kubectl code completion
+if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
