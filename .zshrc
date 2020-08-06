@@ -106,7 +106,10 @@ function code-push {
 if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
     source "${HOME}/.config/cloudtoken/bashrc_additions"
 fi
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+if [[ -f "/usr/libexec/java_home" ]]; then
+	export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+fi
+
 if [ $commands[atlas] ]; then alias am="atlas micros"; fi
 export NVM_DIR="$HOME/.nvm"
 
