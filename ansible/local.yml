@@ -15,9 +15,8 @@
         cp .vimrc ~/
         cp .zshrc ~/ 
     
-    
     - homebrew:
-        name: go,python,vim
+        name: go,python,vim,nvm
 
     - homebrew_cask:
         name: docker,skype,whatsapp,monitorcontrol,multitouch,visual-studio-code

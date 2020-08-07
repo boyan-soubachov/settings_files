@@ -14,6 +14,18 @@
     brew tap adoptopenjdk/openjdk
     brew tap --force-auto-update atlassian/kubetoken ssh://git@stash.atlassian.com:7997/kube/homebrew-kubetoken.git
 - homebrew_cask:
-    name: adoptopenjdk11,adoptopenjdk8
+    name: adoptopenjdk11,adoptopenjdk8,intellij-idea
 - homebrew:
     name: kubectl,kubetoken
+
+- name: Enable Go for private repos
+  shell: |
+    git config --global url.ssh://git@stash.atlassian.com:7997/.insteadOf https://stash.atlassian.com/scm/
+    git config --global url.git@bitbucket.org:.insteadOf https://bitbucket.org/
+    go env -w GOPRIVATE="*.atlassian.com,bitbucket.org/observability,bitbucket.org/atlassian,bitbucket.org/hipchat"
+
+- name: Install Atlas CLI
+  become: true
+  shell: |
+    curl -fL https://statlas.prod.atl-paas.net/atlas-cli/darwin/atlas-latest-darwin-amd64.tar.gz | tar -xzp atlas
+    sudo mv atlas /usr/local/bin
