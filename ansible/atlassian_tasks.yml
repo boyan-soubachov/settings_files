@@ -16,7 +16,11 @@
 - homebrew_cask:
     name: adoptopenjdk11,adoptopenjdk8,intellij-idea
 - homebrew:
-    name: kubectl,kubetoken
+    name: kubectl,kubetoken,nvm
+
+- name: Set-up NVM
+  shell: |
+    mkdir -p ~/.nvm
 
 - name: Enable Go for private repos
   shell: |
