@@ -9,8 +9,11 @@
     cloudtoken --init
     cp atlassian_cloudtoken_config.yaml ~/.config/cloudtoken/config.yaml
 
-- name: Brew tap adoptopenjdk
-  shell: brew tap adoptopenjdk/openjdk
+- name: Brew taps
+  shell: |
+    brew tap adoptopenjdk/openjdk
+    brew tap --force-auto-update atlassian/kubetoken ssh://git@stash.atlassian.com:7997/kube/homebrew-kubetoken.git
 - homebrew_cask:
     name: adoptopenjdk11,adoptopenjdk8
-
+- homebrew:
+    name: kubectl,kubetoken
