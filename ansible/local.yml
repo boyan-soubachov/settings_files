@@ -19,6 +19,6 @@
         name: go,python,vim
 
     - homebrew_cask:
-        name: docker,skype,whatsapp,monitorcontrol,multitouch,visual-studio-code
+        name: docker,skype,whatsapp,monitorcontrol,multitouch,visual-studio-code,insomnia
     
     - include: atlassian_tasks.yml
