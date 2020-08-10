@@ -16,7 +16,7 @@
 - homebrew_cask:
     name: adoptopenjdk11,adoptopenjdk8,intellij-idea
 - homebrew:
-    name: kubectl,kubetoken,nvm
+    name: kubectl,kubetoken,kubectx,nvm
 
 - name: Set-up NVM
   shell: |

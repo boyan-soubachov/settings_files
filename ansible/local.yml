@@ -16,9 +16,9 @@
         cp .zshrc ~/ 
     
     - homebrew:
-        name: go,python,vim
+        name: go,python,vim,hg
 
     - homebrew_cask:
-        name: docker,skype,whatsapp,monitorcontrol,multitouch,visual-studio-code,insomnia
+        name: docker,skype,whatsapp,monitorcontrol,multitouch,visual-studio-code,insomnia,transmission,virtualbox
     
     - include: atlassian_tasks.yml
