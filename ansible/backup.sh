@@ -17,7 +17,7 @@ function clean_up {
     brew remove $required_applications
 }
 
-function export_machine_settings {
+function export_machine_settings {us
     echo "exporting settings..."
     mkdir -p export/defaults
 
@@ -35,7 +35,7 @@ function export_application_settings {
 
 function export_app_store_apps {
     mkdir -p export/app_store
-    mas list | cut -f 1 -d ' ' > export/app_store/installed_apps.txt
+    mas list | cut -f 1 -d ' ' > export/app_store/installed_app_ids.txt
 }
 
 requires
