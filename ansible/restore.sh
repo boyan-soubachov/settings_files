@@ -39,7 +39,7 @@ function import_machine_settings {
 
     for domain in $(ls export/defaults)
     do
-        defaults import $domain export/defaults/$domain.plist
+        defaults import $domain export/defaults/$domain
     done
 }
 
@@ -48,9 +48,7 @@ function import_application_settings {
     rsync -a --prune-empty-dirs --include '*/' --include '*.plist' --exclude '*' export/Library ~/
 }
 
-function import_application_settings {
-    echo "* Application settings..."
-}
+requires
 
 echo "Extracting backup at export.zip..."
 unzip -o -q export.zip
@@ -58,6 +56,6 @@ unzip -o -q export.zip
 echo "Importing:"
 import_app_store_apps
 import_brew_installs
-# import_application_settings
-# import_machine_settings
+import_application_settings
+import_machine_settings
 
