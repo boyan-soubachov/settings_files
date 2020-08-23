@@ -33,7 +33,9 @@ function export_machine_settings {
 
 function export_application_settings {
     echo "* Application settings..."
-    rsync -a --prune-empty-dirs --include '*/' --include '*.plist' --exclude '*' ~/Library export/
+    mkdir ./export/Library
+    rsync -a --prune-empty-dirs --include '*/' ~/Library/Application\ Support export/Library/
+    rsync -a --prune-empty-dirs --include '*/' ~/Library/Preferences export/Library/
 }
 
 function export_app_store_apps {

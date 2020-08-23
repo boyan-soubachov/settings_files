@@ -45,7 +45,7 @@ function import_machine_settings {
 
 function import_application_settings {
     echo "* Application settings..."
-    rsync -a --prune-empty-dirs --include '*/' --include '*.plist' --exclude '*' export/Library ~/
+    rsync -a --prune-empty-dirs --include '*/' export/Library ~/
 }
 
 requires
