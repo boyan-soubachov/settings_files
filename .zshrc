@@ -50,7 +50,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(brew git docker git-extras)
+plugins=(brew git docker)
 
 # User configuration
 
@@ -89,7 +89,7 @@ export SSH_KEY_PATH="~/.ssh/id_rsa.pub"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias glog="git log --decorate --graph"
+alias glog="git log --decorate --graph --first-parent"
 
 # Takealot git helper functions
 function code-on {
@@ -103,15 +103,26 @@ function code-push {
 }
 
 # Atlassian helpers & stuff
-if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
-    source "${HOME}/.config/cloudtoken/bashrc_additions"
-fi
 if [[ -f "/usr/libexec/java_home" ]]; then
 	export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 fi
 
+# Needed for cloudtoken to successfully set env vars
+if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
+    source "${HOME}/.config/cloudtoken/bashrc_additions"
+fi
+
 if [ $commands[atlas] ]; then alias am="atlas micros"; fi
-export NVM_DIR="$HOME/.nvm"
+
+function nvm_enable {
+	export NVM_DIR="$HOME/.nvm"
+  	[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  	[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+	nvm use
+}
 
 # Kubectl code completion
 if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
+
+# Disable auto-correct
+unsetopt correct_all
