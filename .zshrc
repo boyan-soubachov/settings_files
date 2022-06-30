@@ -57,6 +57,8 @@ plugins=(brew git docker)
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export PATH="/Users/bsoubachov/Library/Python/3.9/bin:$PATH"
+
 if [[ "$(command -v go)" ]]; then
    PATH="$PATH:$(go env GOPATH)/bin"
 fi
@@ -93,7 +95,13 @@ alias glog="git log --decorate --graph --first-parent"
 
 # Takealot git helper functions
 function code-on {
-    git checkout -b $1 origin/master
+	if [[ $(git rev-parse -q --verify master) ]]; then
+		git checkout -b $1 ${2:-origin/master}
+	elif [[ $(git rev-parse -q --verify main) ]]; then
+		git checkout -b $1 ${2:-origin/main}
+	else
+		git checkout -b $1 ${2:-origin/master}
+	fi
 }
 
 function code-push {
@@ -105,11 +113,6 @@ function code-push {
 # Atlassian helpers & stuff
 if [[ -f "/usr/libexec/java_home" ]]; then
 	export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-fi
-
-# Needed for cloudtoken to successfully set env vars
-if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
-    source "${HOME}/.config/cloudtoken/bashrc_additions"
 fi
 
 if [ $commands[atlas] ]; then alias am="atlas micros"; fi
@@ -124,5 +127,12 @@ function nvm_enable {
 # Kubectl code completion
 if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
 
+alias kube_nodes="kubectl get nodes --sort-by=.metadata.labels.role -L role,customer,node.kubernetes.io/instance-type,topology.kubernetes.io/zone"
+
 # Disable auto-correct
 unsetopt correct_all
+
+# Cloudtoken fix
+function ct {
+	eval $(cloudtoken --export -q -f "$1")
+}
