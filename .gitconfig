@@ -1,0 +1,15 @@
+[url "ssh://git@stash.atlassian.com:7997/"]
+	insteadOf = https://stash.atlassian.com/scm/
+[url "git@bitbucket.org:"]
+	insteadOf = https://bitbucket.org/
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[user]
+	email = boyanvs@gmail.com
+	name = Boyan Soubachov
+[pull]
+	rebase = false
+[includeIf "gitdir:~/workspace/"]
+	path = ~/workspace/.gitconfig
+[init]
+	defaultBranch = master
