@@ -41,7 +41,7 @@ COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="dd/mm/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -112,7 +112,7 @@ function code-push {
 
 # Atlassian helpers & stuff
 if [[ -f "/usr/libexec/java_home" ]]; then
-	export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+	export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
 if [ $commands[atlas] ]; then alias am="atlas micros"; fi
@@ -128,6 +128,7 @@ function nvm_enable {
 if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
 
 alias kube_nodes="kubectl get nodes --sort-by=.metadata.labels.role -L role,customer,node.kubernetes.io/instance-type,topology.kubernetes.io/zone"
+alias kube_pods="kubectl get pod --all-namespaces --sort-by='.metadata.name' -o json | jq -r '[.items[] | {pod_name: .metadata.name, containers: .spec.containers[] | [ {container_name: .name, memory_requested: .resources.requests.memory, cpu_requested: .resources.requests.cpu} ] }]' | jq  'sort_by(.containers[0].cpu_requested)'"
 
 # Disable auto-correct
 unsetopt correct_all
@@ -135,4 +136,15 @@ unsetopt correct_all
 # Cloudtoken fix
 function ct {
 	eval $(cloudtoken --export -q -f "$1")
+}
+
+# AWS assume role auto-use
+function aws_use_role {
+    export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" \
+    $(aws sts assume-role \
+    --role-arn $1 \
+    --role-session-name temp-role \
+    --query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" \
+    --output text))
+	unset AWS_SECURITY_TOKEN AWS_ACCOUNT_ID
 }
