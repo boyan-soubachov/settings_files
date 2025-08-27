@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
+export DISABLE_UPDATE_PROMPT=true
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -92,6 +93,7 @@ export SSH_KEY_PATH="~/.ssh/id_rsa.pub"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias glog="git log --decorate --graph --first-parent"
+alias kctl="kubectl"
 
 # Takealot git helper functions
 function code-on {
@@ -109,6 +111,8 @@ function code-push {
     [[ "$branch" == "master" ]] && echo "should be on feature branch" && return 1
     git push origin HEAD:$branch $@
 }
+
+alias gfl="git fetch && git pull --no-edit"
 
 # Atlassian helpers & stuff
 if [[ -f "/usr/libexec/java_home" ]]; then
@@ -130,6 +134,9 @@ if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
 alias kube_nodes="kubectl get nodes --sort-by=.metadata.labels.role -L role,customer,node.kubernetes.io/instance-type,topology.kubernetes.io/zone"
 alias kube_pods="kubectl get pod --all-namespaces --sort-by='.metadata.name' -o json | jq -r '[.items[] | {pod_name: .metadata.name, containers: .spec.containers[] | [ {container_name: .name, memory_requested: .resources.requests.memory, cpu_requested: .resources.requests.cpu} ] }]' | jq  'sort_by(.containers[0].cpu_requested)'"
 
+# KITT kubectl setup
+export KUBECONFIG=$(atlas kitt context:create --pid=$$)
+
 # Disable auto-correct
 unsetopt correct_all
 
@@ -148,3 +155,14 @@ function aws_use_role {
     --output text))
 	unset AWS_SECURITY_TOKEN AWS_ACCOUNT_ID
 }
+
+# Suppress docker noise
+export DOCKER_CLI_HINTS=false
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PATH="/Users/bsoubachov/.orbit/bin:$PATH"
+export KUBECONFIG=$(atlas kitt context:create --pid=$$)
+
