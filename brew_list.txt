@@ -1,5 +1,4 @@
 abseil
-acli
 ansible
 aom
 aribb24
@@ -217,12 +216,10 @@ docker-desktop
 firefox
 intellij-idea
 karabiner-elements
-loom
 monitorcontrol
 multitouch
 scratch
 sensiblesidebuttons
-smooze
 temurin@11
 temurin@17
 temurin@21
